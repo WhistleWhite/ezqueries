@@ -1,0 +1,48 @@
+<f:layout name="Default" />
+<f:section name="searchform">
+</f:section>
+<f:section name="main">
+<div id="tx_ezqueries_main">
+
+	<f:if condition="{headline}">
+		<f:then>
+			<h2 class="tx_ezqueries_headline">{headline}</h2>
+		</f:then>
+	</f:if>
+
+	<f:if condition="{flashMessage}">
+		<f:then>
+			<div class="tx_ezqueries_message">{flashMessage}</div>
+		</f:then>
+	</f:if>
+
+	{namespace viewHelper = Frohland\Ezqueries\ViewHelpers}
+
+	<f:if condition="{confirmed}">
+		<f:then>
+			<div class="tx_ezqueries_options tx_ezqueries_delete_options">
+				<div class="tx_ezqueries_options_abort"><viewHelper:link action="list" arguments="{search : search, filters : filters}" additionalClass="tx_ezqueries_link_delete tx_ezqueries_link_abort_delete tx_ezqueries_link_abort" type="button" /></div>
+			</div>
+		</f:then>
+		<f:else>
+			<f:if condition="{error}">
+				<f:then>
+					<div class="tx_ezqueries_delete_error tx_ezqueries_options tx_ezqueries_delete_options">
+						<div class="tx_ezqueries_options_abort"><viewHelper:link action="list" arguments="{search : search, filters : filters}" additionalClass="tx_ezqueries_link_delete tx_ezqueries_link_abort" type="button" /></div>
+					</div>
+				</f:then>
+				<f:else>
+					<div class="tx_ezqueries_delete">
+						<p class="tx_ezqueries_delete_confirmation_text"><f:translate key="template_delete_confirmation" /></p>
+					</div>
+					<div class="tx_ezqueries_options tx_ezqueries_delete_options">
+						<div class="tx_ezqueries_options_delete"><viewHelper:link action="delete" arguments="{primaryKeys : primaryKeys, confirmed : 1, search : search, filters : filters}" additionalClass="tx_ezqueries_link_delete tx_ezqueries_link_delete_confirmed" type="button" /></div>
+						<div class="tx_ezqueries_options_abort"><viewHelper:link action="list" arguments="{search : search, filters : filters}" additionalClass="tx_ezqueries_link_delete tx_ezqueries_link_abort" type="button" /></div>
+					</div>
+				</f:else>
+			</f:if>
+		</f:else>
+	</f:if>
+
+</div>
+</f:section>

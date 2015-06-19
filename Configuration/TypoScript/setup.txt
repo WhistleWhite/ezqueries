@@ -1,0 +1,46 @@
+plugin.tx_ezqueries {
+	view {
+		templateRootPath = {$plugin.tx_ezqueries.view.templateRootPath}
+		partialRootPath = {$plugin.tx_ezqueries.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_ezqueries.view.layoutRootPath}
+	}
+}
+
+plugin.tx_ezqueries_ezqueriesplugin {
+	settings {
+		pathToJQuery = EXT:ezqueries/Resources/Public/JS/jquery.min.js
+		pathToJQueryUI = EXT:ezqueries/Resources/Public/JS/jquery-ui.min.js
+		pathToJQueryUICSS = EXT:ezqueries/Resources/Public/CSS/jquery-ui/jquery-ui.min.css
+	}
+}
+
+ezQueriesAjax = PAGE
+ezQueriesAjax {
+	typeNum = 526
+	config.disableAllHeaderCode = 1
+	config.additionalHeaders = Content-type: text/html; charset=utf-8
+	config.metaCharset = UTF-8
+
+	10 = COA
+	10 <  styles.content.get
+	10.stdWrap.prepend > // supress feEditAdvanced-firstWrapper – Bug in typo3 4.3.1
+}
+
+ezQueriesJson = PAGE
+ezQueriesJson {
+	typeNum = 527
+	config.disableAllHeaderCode = 1
+	config.additionalHeaders = Content-type:application/json
+	config.metaCharset = UTF-8
+	configx.html_cleaning = 0
+	config.admPanel = 0
+
+	10 = COA
+	10 <  styles.content.get
+	10.stdWrap.prepend > // supress feEditAdvanced-firstWrapper – Bug in typo3 4.3.1
+}
+
+[globalVar = GP:type = 527]
+	tt_content.stdWrap >
+[global]
+

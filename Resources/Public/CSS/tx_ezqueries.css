@@ -1,0 +1,160 @@
+/* Structure */
+
+div.tx_ezqueries_wrapper {
+	float: left;
+	position: relative;
+	width: 100%;
+}
+
+div.tx_ezqueries_wrapper:after {
+	content: ".";
+	display: block;
+	height: .1px;
+	clear: both;
+	visibility: hidden;
+	font-size: 0;
+	overflow: hidden;
+}
+
+div#tx_ezqueries_searchform {
+	clear: both;
+	float: left;
+	position: relative;
+	z-index: 1;
+}
+
+div.tx_ezqueries {
+	clear: both;
+	float: left;
+	position: relative;
+	z-index: 1;
+}
+
+div#tx_ezqueries_main {
+	float: left;
+	position: relative;
+	width: 100%;
+}
+
+div.tx_ezqueries_ajax_content {
+	float: left;
+	min-height: 15px;
+	min-width: 15px;
+	position: relative;
+}
+
+table.tx_ezqueries_relation td {
+	vertical-align: top;
+}
+
+/* Loading screens */
+
+div.tx_ezqueries_loadingscreen {
+	background: url(../Images/ajax-loader.gif) center no-repeat;
+	display: none;
+	height: 100%;
+	left: 0;
+	opacity: 0.7;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2;
+}
+
+div.tx_ezqueries_loadingscreen_content {
+	background: url(../Images/loading.gif) center no-repeat;
+	display: none;
+	height: 100%;
+	left: 0;
+	opacity: 0.7;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2;
+}
+
+/* List view */
+
+a.tx_ezqueries_image_order_asc {
+	background-image: url(../Images/asc.png);
+	background-position: 10px 15px;
+	background-repeat: no-repeat;
+}
+
+a.tx_ezqueries_image_order_desc {
+	background-image: url(../Images/desc.png);
+	background-position: 10px 15px;
+	background-repeat: no-repeat;
+}
+
+/* Form elements */
+
+div.tx_ezqueries_input {
+	clear: both;
+	float: left;
+	position: relative;
+}
+
+div.tx_ezqueries_datepicker {
+	float: left;
+}
+
+div.tx_ezqueries_help_text_icon {
+	background: url(../Icons/help_icon.png) center no-repeat;
+	cursor: pointer;
+	float: left;
+	height: 29px;
+	width: 29px;
+}
+
+div.tx_ezqueries_help_text_icon div.tx_ezqueries_help_text {
+	display: none;
+}
+
+div.tx_ezqueries_help_text {
+	clear: both;
+	float: left;
+}
+
+div.tx_ezqueries_image_delete {
+	background: url(../Images/delete_icon.png) 0 0 no-repeat;
+	cursor: pointer;
+	display: none;
+	height: 15px;
+	position: absolute;
+	right: 5px;
+	top: 8px;
+	width: 15px;
+}
+
+label.error {
+	clear: both;
+	float: left;
+}
+
+/* File Uploader */
+
+.qq-upload-spinner {
+	background: url("../Images/loading.gif");
+	display: inline-block;
+	height: 15px;
+	vertical-align: text-bottom;
+	width: 15px;
+}
+
+/* Miscellaneous */
+
+div.tx_ezqueries_message {
+	clear: both;
+}
+
+div.tx_ezqueries_popup {
+	display: none;
+	margin: 0 !important;
+}
+
+div.tx_ezqueries_clearfix {
+	width: 1px;
+	height: 0px;
+	clear: both;
+}

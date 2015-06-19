@@ -1,0 +1,10 @@
+plugin.tx_ezqueries {
+	view {
+		# cat=plugin.tx_ezqueries/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:ezqueries/Resources/Private/Templates/
+		# cat=plugin.tx_ezqueries/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:ezqueries/Resources/Private/Partials/
+		# cat=plugin.tx_ezqueries/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:ezqueries/Resources/Private/Layouts/
+	}
+}

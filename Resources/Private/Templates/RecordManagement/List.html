@@ -1,0 +1,137 @@
+<f:layout name="Default" />
+<f:section name="searchform">
+</f:section>
+<f:section name="main">
+<div id="tx_ezqueries_main" data-ezqueries-ajax-url="{url}">
+
+	<f:if condition="{headline}">
+		<f:then>
+			<h2 class="tx_ezqueries_headline">{headline}</h2>
+		</f:then>
+	</f:if>
+
+	<f:if condition="{textTop}">
+		<f:then>
+			<p class="tx_ezqueries_text tx_ezqueries_text_top">{textTop}</p>
+		</f:then>
+	</f:if>
+
+	<f:if condition="{flashMessage}">
+		<f:then>
+			<div class="tx_ezqueries_message">{flashMessage}</div>
+		</f:then>
+	</f:if>
+
+	<f:if condition="{top}">
+		<f:then>
+			<div class="tx_ezqueries_options tx_ezqueries_options_top tx_ezqueries_list_options">
+				<f:if condition="{showNewLink}">
+					<f:then>
+						<div class="tx_ezqueries_options_new"><viewHelper:link action="new" arguments="{search : recordManagement.conditions.search, filters : recordManagement.conditions.filters, orderBy : recordManagement.conditions.orderBy, order : recordManagement.conditions.order}" additionalClass="tx_ezqueries_link_new tx_ezqueries_list_link_new" type="button" /></div>
+					</f:then>
+				</f:if>
+				<f:if condition="{showSearchLink}">
+					<f:then>
+						<div class="tx_ezqueries_options_search"><viewHelper:link action="search" arguments="{filters : recordManagement.conditions.filters}" additionalClass="tx_ezqueries_link_search tx_ezqueries_list_link_search" type="button" /></div>
+					</f:then>
+				</f:if>
+				<viewHelper:pageBrowser recordManagement="{recordManagement}" />
+			</div>
+		</f:then>
+	</f:if>
+
+	{namespace viewHelper = Frohland\Ezqueries\ViewHelpers}
+
+	<f:if condition="{showTemplate}">
+		<f:then>
+			<f:if condition="{useTemplate}">
+				<f:then>
+					<viewHelper:listTemplate template="{template}" recordManagement="{recordManagement}" />
+				</f:then>
+				<f:else>
+					<table class="tx_ezqueries_list">
+						<thead class="tx_ezqueries_list_thead">
+							<tr class="tx_ezqueries_list_row">
+								<f:if condition="{useSortableColumns}">
+									<f:then>
+										<viewHelper:sortColumns recordManagement="{recordManagement}" />
+									</f:then>
+									<f:else>
+										<f:for each="{recordManagement.table.selectedColumns}" as="column">
+											<th class="tx_ezqueries_list_header tx_ezqueries_list_header_{column.cssName}" nowrap="nowrap">{column.columnName}</th>
+										</f:for>
+									</f:else>
+								</f:if>
+								<f:if condition="{options}">
+									<f:then>
+										<th class="tx_ezqueries_list_header tx_ezqueries_list_header_options" colspan="3"><f:translate key="template_list_header_options" /></th>
+									</f:then>
+								</f:if>
+							</tr>
+						</thead>
+						<tbody id="tx_ezqueries_list_body">
+							<viewHelper:for each="{recordManagement.records}" as="record" reverse="FALSE" iteration="recordNumber" parity="parity">
+								<f:if condition="{parity.isEven}">
+									<f:then>
+										<tr class="tx_ezqueries_list_row tx_ezqueries_list_row_even" id="tx_ezqueries_record_{recordNumber}">
+									</f:then>
+									<f:else>
+										<tr class="tx_ezqueries_list_row tx_ezqueries_list_row_odd" id="tx_ezqueries_record_{recordNumber}">
+									</f:else>
+								</f:if>
+									<f:for each="{recordManagement.table.selectedColumns}" as="column">
+										<td class="tx_ezqueries_list_data tx_ezqueries_list_data_{column.cssName}"><viewHelper:renderValue column="{column.name}" record="{record}" columnTypes="{recordManagement.table.columnTypes}" search="{recordManagement.conditions.search}" recordManagementRepository="{recordManagement.recordManagementRepository}" /></td>
+									</f:for>
+									<f:if condition="{options}">
+										<f:then>
+											<f:if condition="{showDetailOption}">
+												<f:then>
+													<td class="tx_ezqueries_list_data tx_ezqueries_list_data_detail"><viewHelper:link action="detail" arguments="{primaryKeys : record.primaryKeys, search : recordManagement.conditions.search, filters : recordManagement.conditions.filters, orderBy : recordManagement.conditions.orderBy, order : recordManagement.conditions.order}" additionalClass="tx_ezqueries_link_detail tx_ezqueries_list_link_detail" /></td>
+												</f:then>
+											</f:if>
+											<f:if condition="{showEditOption}">
+												<f:then>
+													<td class="tx_ezqueries_list_data tx_ezqueries_list_data_edit"><viewHelper:link action="edit" arguments="{primaryKeys : record.primaryKeys, search : recordManagement.conditions.search, filters : recordManagement.conditions.filters, orderBy : recordManagement.conditions.orderBy, order : recordManagement.conditions.order}" additionalClass="tx_ezqueries_link_edit  tx_ezqueries_list_link_edit" /></td>
+												</f:then>
+											</f:if>
+											<f:if condition="{showDeleteOption}">
+												<f:then>
+													<td class="tx_ezqueries_list_data tx_ezqueries_list_data_delete"><viewHelper:link action="delete" arguments="{primaryKeys : record.primaryKeys, search : recordManagement.conditions.search, filters : recordManagement.conditions.filters, orderBy : recordManagement.conditions.orderBy, order : recordManagement.conditions.order}" additionalClass="tx_ezqueries_link_delete  tx_ezqueries_list_link_delete" /></td>
+												</f:then>
+											</f:if>
+										</f:then>
+									</f:if>
+								</tr>
+							</viewHelper:for>
+						</tbody>
+					</table>
+				</f:else>
+			</f:if>
+		</f:then>
+	</f:if>
+
+	<f:if condition="{bottom}">
+		<f:then>
+			<div class="tx_ezqueries_options tx_ezqueries_options_bottom tx_ezqueries_list_options">
+				<f:if condition="{showNewLink}">
+					<f:then>
+						<div class="tx_ezqueries_options_new"><viewHelper:link action="new" arguments="{search : recordManagement.conditions.search, filters : recordManagement.conditions.filters, orderBy : recordManagement.conditions.orderBy, order : recordManagement.conditions.order}" additionalClass="tx_ezqueries_link_new tx_ezqueries_list_link_new" type="button" /></div>
+					</f:then>
+				</f:if>
+				<f:if condition="{showSearchLink}">
+					<f:then>
+						<div class="tx_ezqueries_options_search"><viewHelper:link action="search" arguments="{filters : recordManagement.conditions.filters}" additionalClass="tx_ezqueries_link_search tx_ezqueries_list_link_search" type="button" /></div>
+					</f:then>
+				</f:if>
+				<viewHelper:pageBrowser recordManagement="{recordManagement}" />
+			</div>
+		</f:then>
+	</f:if>
+
+	<f:if condition="{textBottom}">
+		<f:then>
+			<p class="tx_ezqueries_text tx_ezqueries_text_bottom">{textBottom}</p>
+		</f:then>
+	</f:if>
+</div>
+</f:section>

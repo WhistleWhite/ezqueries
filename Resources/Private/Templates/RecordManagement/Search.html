@@ -1,0 +1,44 @@
+<f:layout name="Default" />
+
+<f:section name="searchform">
+
+	{namespace viewHelper = Frohland\Ezqueries\ViewHelpers}
+
+	<f:if condition="{headline}">
+		<f:then>
+			<h2 class="tx_ezqueries_headline">{headline}</h2>
+		</f:then>
+	</f:if>
+
+	<f:if condition="{textTop}">
+		<f:then>
+			<p class="tx_ezqueries_text tx_ezqueries_text_top">{textTop}</p>
+		</f:then>
+	</f:if>
+
+	<f:if condition="{useTemplate}">
+		<f:then>
+			<viewHelper:searchTemplate template="{template}" recordManagement="{recordManagement}" />
+		</f:then>
+		<f:else>
+			<viewHelper:search recordManagement="{recordManagement}" fullTextSearch="{fullTextSearch}" />
+			<div class="tx_ezqueries_options tx_ezqueries_search_options">
+				<f:if condition="{showCloseLink}">
+					<f:then>
+						<div class="tx_ezqueries_options_close"><viewHelper:link action="list" arguments="{filters : recordManagement.conditions.filters}" additionalClass="tx_ezqueries_link_search tx_ezqueries_link_abort" type="button" /></div>
+					</f:then>
+				</f:if>
+			</div>
+		</f:else>
+	</f:if>
+
+	<f:if condition="{textBottom}">
+		<f:then>
+			<p class="tx_ezqueries_text tx_ezqueries_text_bottom">{textBottom}</p>
+		</f:then>
+	</f:if>
+
+</f:section>
+
+<f:section name="main">
+</f:section>

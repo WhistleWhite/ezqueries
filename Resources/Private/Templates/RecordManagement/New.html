@@ -1,0 +1,60 @@
+<f:layout name="Default" />
+<f:section name="searchform">
+</f:section>
+<f:section name="main">
+<div id="tx_ezqueries_main" data-ezqueries-ajax-url="{url}">
+
+	<f:if condition="{headline}">
+		<f:then>
+			<h2 class="tx_ezqueries_headline">{headline}</h2>
+		</f:then>
+	</f:if>
+
+	<f:if condition="{textTop}">
+		<f:then>
+			<p class="tx_ezqueries_text tx_ezqueries_text_top">{textTop}</p>
+		</f:then>
+	</f:if>
+
+	<f:if condition="{flashMessage}">
+		<f:then>
+			<div class="tx_ezqueries_message">{flashMessage}</div>
+		</f:then>
+	</f:if>
+
+	<f:if condition="{redirectAfterSubmit}">
+		<f:then>
+			<div class="tx_ezqueries_redirect_after_submit"></div>
+		</f:then>
+	</f:if>
+
+	{namespace viewHelper = Frohland\Ezqueries\ViewHelpers}
+
+	<f:if condition="{successful}">
+		<f:then>
+			<div class="tx_ezqueries_ajaxupdate"></div>
+		</f:then>
+	</f:if>
+	<f:if condition="{useTemplate}">
+		<f:then>
+			<viewHelper:newTemplate template="{template}" recordManagement="{recordManagement}" />
+		</f:then>
+		<f:else>
+			<viewHelper:new recordManagement="{recordManagement}" />
+			<div class="tx_ezqueries_options tx_ezqueries_new_options">
+				<f:if condition="{showCloseLink}">
+					<f:then>
+						<div class="tx_ezqueries_options_close"><viewHelper:link action="list" arguments="{search : recordManagement.conditions.search, filters : recordManagement.conditions.filters, orderBy : recordManagement.conditions.orderBy, order : recordManagement.conditions.order}" additionalClass="tx_ezqueries_link_new tx_ezqueries_link_abort" type="button" /></div>
+					</f:then>
+				</f:if>
+			</div>
+		</f:else>
+	</f:if>
+
+	<f:if condition="{textBottom}">
+		<f:then>
+			<p class="tx_ezqueries_text tx_ezqueries_text_bottom">{textBottom}</p>
+		</f:then>
+	</f:if>
+</div>
+</f:section>
