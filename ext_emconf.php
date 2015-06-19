@@ -6,7 +6,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'EasyQueries',
-	'description' => 'ezqueries.florianrohland.de',
+	'description' => 'ezqueries.de',
 	'category' => 'plugin',
 	'author' => 'Florian Rohland',
 	'author_email' => 'info@florianrohland.de',
