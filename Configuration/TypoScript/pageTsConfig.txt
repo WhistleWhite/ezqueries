@@ -1,0 +1,20 @@
+mod.wizards.newContentElement.wizardItems.plugins.elements.tx_ezqueries_ezqueriesplugin {
+    icon = gfx/c_wiz/regular_text.gif
+    title = EasyQueries
+    description = ezqueries plugin
+    tt_content_defValues {
+		CType = list
+		list_type = ezqueries_ezqueriesplugin
+	}
+}
+
+# Below the same for TemplaVoila
+templavoila.wizards.newContentElement.wizardItems.plugins.elements.tx_ezqueries_ezqueriesplugin {
+    icon = gfx/c_wiz/regular_text.gif
+    title = EasyQueries
+    description = ezqueries plugin
+    tt_content_defValues {
+		CType = list
+		list_type = ezqueries_ezqueriesplugin
+	}
+}
