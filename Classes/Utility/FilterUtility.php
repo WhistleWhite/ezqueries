@@ -62,7 +62,7 @@ class FilterUtility {
 		// Boolean form element
 		if ($columnTypes[$column]['type'] == 'boolean') {
 			$code .= '<select class="tx_ezqueries_select ' . $columnTypes[$column]['filterDropDownListClass'] . '" id="' . $id . '" size="1" name="tx_ezqueries_ezqueriesplugin[search][' . $column . '][value]" >';
-			$code .= '<option selected="selected">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_no_filter', 'ezqueries') . '</option>';
+			$code .= '<option value="" selected="selected">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_no_filter', 'ezqueries') . '</option>';
 			$code .= '<option value="1">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_bool_yes', 'ezqueries') . '</option>';
 			$code .= '<option value="0">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_bool_no', 'ezqueries') . '</option>';
 			$code .= '</select>';
