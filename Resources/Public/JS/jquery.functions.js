@@ -232,6 +232,7 @@ jQuery(document).ready(function($) {
 		var url = cachedLink.attr('href');
 		//var setUrl = url.substr(url.lastIndexOf('/') + 1);
 		var setUrl = url;
+
 		if(url === undefined){
 			return;
 		}
@@ -487,7 +488,7 @@ jQuery(document).ready(function($) {
 						mainUrl = Base64.decode(mainUrl);
 
 						// IE fix
-						if($.browser.msie) {
+						if(navigator.appName == 'Microsoft Internet Explorer') {
 							var ieLocation = document.createElement('a');
 							ieLocation.href = mainUrl;
 							document.body.appendChild(ieLocation);
