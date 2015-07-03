@@ -325,7 +325,7 @@ class FormUtility {
 			}
 			// Integer
 			if ($columnTypes[$column]['type'] == 'int') {
-				$validationAttr .= 'data-rule-integer="true" ';
+				$validationAttr .= 'data-rule-digits="true" ';
 			}
 			// Alphanumeric
 			if (isset($columnTypes[$column]['alphanumeric'])) {
