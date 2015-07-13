@@ -425,9 +425,19 @@ class FormUtility {
 				// Choose/Yes/No select
 				if ($columnTypes[$column]['render'] == 'chooseyesno') {
 					$code .= '<select class="tx_ezqueries_select" id="' . $id . '" size="1" name="tx_ezqueries_ezqueriesplugin[' . $column . ']"  data-rule-required="true">';
-					$code .= '<option selected="selected" value="">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_select_choose', 'ezqueries') . '</option>';
-					$code .= '<option value="1">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_bool_yes', 'ezqueries') . '</option>';
-					$code .= '<option value="0">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_bool_no', 'ezqueries') . '</option>';
+					if ($value == '' || $value == NULL) {
+						$code .= '<option selected="selected" value="">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_select_choose', 'ezqueries') . '</option>';
+					}
+					if ($value == '1') {
+						$code .= '<option selected="selected" value="1">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_bool_yes', 'ezqueries') . '</option>';
+					}else{
+						$code .= '<option value="1">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_bool_yes', 'ezqueries') . '</option>';
+					}
+					if ($value == '0') {
+						$code .= '<option selected="selected" value="0">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_bool_no', 'ezqueries') . '</option>';
+					}else{
+						$code .= '<option value="0">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('form_bool_no', 'ezqueries') . '</option>';
+					}
 					$code .= '</select>';
 				}
 				// Number
