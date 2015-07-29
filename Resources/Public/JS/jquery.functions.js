@@ -33,6 +33,11 @@ tinyMCE.init({
 });
 
 var closestAjaxContainer;
+var init = true;
+
+window.onhashchange = function() {
+	init = false;
+}
 
 jQuery(document).ready(function($) {
 	// TinyMCE editor
@@ -159,7 +164,7 @@ jQuery(document).ready(function($) {
 			hash = hash.replace('!', '');
 			loadContent(hash, true, null, false);
 		} else {
-			loadContent(window.location.href, false, null, true);
+			loadContent(window.location.href, false, null, init);
 		}
 	}, {
 		unescape : ",/"
@@ -233,7 +238,7 @@ jQuery(document).ready(function($) {
 		//var setUrl = url.substr(url.lastIndexOf('/') + 1);
 		var setUrl = url;
 
-		if(url === undefined){
+		if(url === undefined) {
 			return;
 		}
 
@@ -656,24 +661,6 @@ function loadContent(ajaxUrl, decodeUrl, ajaxContainer, isInit) {
 			}
 			$(container).find('div.tx_ezqueries_loadingscreen').remove();
 			loadContentSuccess(container);
-			/*$.ajax({
-			 type : "GET",
-			 url : 'index.php',
-			 dataType : "html",
-			 cache : false,
-			 success : function(html, status, jqXHR) {
-			 if( typeof (window.ezqueries_success) == 'function') {
-			 ezqueries_success();
-			 }
-			 $(container).find('div.tx_ezqueries_loadingscreen').remove();
-			 loadContentSuccess(container);
-			 },
-			 error : function(jqXHR, textStatus, errorThrown) {
-			 if( typeof (window.ezqueries_error) == 'function') {
-			 ezqueries_error(jqXHR, textStatus, errorThrown);
-			 }
-			 }
-			 });*/
 		} else {
 			$.ajax({
 				type : "GET",
