@@ -33,6 +33,11 @@ tinyMCE.init({
 });
 
 var closestAjaxContainer;
+var init = true;
+
+window.onhashchange = function() {
+	init = false;
+}
 
 jQuery(document).ready(function($) {
 	// TinyMCE editor
@@ -94,11 +99,11 @@ jQuery(document).ready(function($) {
 	// Form validation
 	$('form.tx_ezqueries_form').validate();
 
-	$('body').on('change', 'input.tx_ezqueries_input', function() {
+	$('body').on('change keypress paste focus textInput input', 'input.tx_ezqueries_input', function() {
 		$(this).valid();
 	});
 
-	$('body').on('change', 'textarea.tx_ezqueries_textarea', function() {
+	$('body').on('change keypress paste focus textInput input', 'textarea.tx_ezqueries_textarea', function() {
 		$(this).valid();
 	});
 
@@ -159,7 +164,7 @@ jQuery(document).ready(function($) {
 			hash = hash.replace('!', '');
 			loadContent(hash, true, null, false);
 		} else {
-			loadContent(window.location.href, false, null, true);
+			loadContent(window.location.href, false, null, init);
 		}
 	}, {
 		unescape : ",/"
@@ -232,7 +237,8 @@ jQuery(document).ready(function($) {
 		var url = cachedLink.attr('href');
 		//var setUrl = url.substr(url.lastIndexOf('/') + 1);
 		var setUrl = url;
-		if(url === undefined){
+
+		if(url === undefined) {
 			return;
 		}
 
@@ -487,7 +493,7 @@ jQuery(document).ready(function($) {
 						mainUrl = Base64.decode(mainUrl);
 
 						// IE fix
-						if($.browser.msie) {
+						if(navigator.appName == 'Microsoft Internet Explorer') {
 							var ieLocation = document.createElement('a');
 							ieLocation.href = mainUrl;
 							document.body.appendChild(ieLocation);
@@ -655,24 +661,6 @@ function loadContent(ajaxUrl, decodeUrl, ajaxContainer, isInit) {
 			}
 			$(container).find('div.tx_ezqueries_loadingscreen').remove();
 			loadContentSuccess(container);
-			/*$.ajax({
-			 type : "GET",
-			 url : 'index.php',
-			 dataType : "html",
-			 cache : false,
-			 success : function(html, status, jqXHR) {
-			 if( typeof (window.ezqueries_success) == 'function') {
-			 ezqueries_success();
-			 }
-			 $(container).find('div.tx_ezqueries_loadingscreen').remove();
-			 loadContentSuccess(container);
-			 },
-			 error : function(jqXHR, textStatus, errorThrown) {
-			 if( typeof (window.ezqueries_error) == 'function') {
-			 ezqueries_error(jqXHR, textStatus, errorThrown);
-			 }
-			 }
-			 });*/
 		} else {
 			$.ajax({
 				type : "GET",

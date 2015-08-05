@@ -31,9 +31,14 @@ namespace Frohland\Ezqueries\Controller;
 class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * @var RecordManagementRepository
+	 * @var \Frohland\Ezqueries\Domain\Repository\RecordManagementRepository
 	 */
 	protected $recordManagementRepository;
+
+	/**
+	 * @var \TYPO3\CMS\Core\Resource\ResourceFactory
+	 */
+	protected $resourceFactory;
 
 	/**
 	 * @param \Frohland\Ezqueries\Domain\Repository\RecordManagementRepository $recordManagementRepository
@@ -41,6 +46,7 @@ class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 */
 	public function injectRecordManagementRepository(\Frohland\Ezqueries\Domain\Repository\RecordManagementRepository $recordManagementRepository) {
 		$this -> recordManagementRepository = $recordManagementRepository;
+		$this -> resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
 	}
 
 	/**
@@ -104,7 +110,7 @@ class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 			$cssTemplateFile = $this -> settings['css']['cssFile'];
 		} else {
 			if ($this -> settings['cssFile']) {
-				$cssTemplateFile = $this -> settings['cssFile'];
+				$cssTemplateFile = $this -> resourceFactory -> retrieveFileOrFolderObject($this -> settings['cssFile']) -> getPublicUrl();
 			}
 		}
 
@@ -123,14 +129,12 @@ class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 		}
 
 		if ($this -> settings['additionalCssFile']) {
-			$cssFiles = explode(',', $this -> settings['additionalCssFile']);
-			foreach ($cssFiles as $cssFile) {
-				$GLOBALS['TSFE'] -> getPageRenderer() -> addCssFile(trim($cssFile));
-			}
+			$cssFile = $this -> resourceFactory -> retrieveFileOrFolderObject($this -> settings['additionalCssFile']) -> getPublicUrl();
+			$GLOBALS['TSFE'] -> getPageRenderer() -> addCssFile(trim($cssFile));
 		}
 
 		if ($this -> settings['uploadFolder']) {
-			$uploadFolder = $this -> settings['uploadFolder'];
+			$uploadFolder = $this -> resourceFactory -> retrieveFileOrFolderObject($this -> settings['uploadFolder']) -> getPublicUrl();
 		} else {
 			if ($this -> settings['uploadFolderPath']) {
 				$uploadFolder = $this -> settings['uploadFolderPath'];
@@ -173,7 +177,7 @@ class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 		$GLOBALS['TSFE'] -> getPageRenderer() -> addJsFile($jQueryUILanguageFile);
 		$GLOBALS['TSFE'] -> getPageRenderer() -> addJsFile($jQueryUploadFile);
 		$GLOBALS['TSFE'] -> getPageRenderer() -> addJsFile($jQueryValidateFile);
-		if (\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('language', 'ezqueries') != 'en'){
+		if (\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('language', 'ezqueries') != 'en') {
 			$GLOBALS['TSFE'] -> getPageRenderer() -> addJsFile($jQueryValidateLocalizationFile);
 		}
 		$GLOBALS['TSFE'] -> getPageRenderer() -> addJsFile($tinyMCEFile, 'text/javascript', FALSE, TRUE, '', TRUE);
@@ -187,10 +191,8 @@ class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 			}
 		}
 		if ($this -> settings['jsFile']) {
-			$jsFiles = explode(',', $this -> settings['jsFile']);
-			foreach ($jsFiles as $jsFile) {
-				$GLOBALS['TSFE'] -> getPageRenderer() -> addJsFile(trim($jsFile));
-			}
+			$jsFile = $this -> resourceFactory -> retrieveFileOrFolderObject($this -> settings['jsFile']) -> getPublicUrl();
+			$GLOBALS['TSFE'] -> getPageRenderer() -> addJsFile(trim($jsFile));
 		}
 	}
 
@@ -271,7 +273,7 @@ class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 				// Use custom list template?
 				if ($this -> settings['useListTemplate']) {
 					if ($this -> settings['listTemplateFile'] != '') {
-						$template = file_get_contents($this -> settings['listTemplateFile']);
+						$template = $this -> resourceFactory -> retrieveFileOrFolderObject($this -> settings['listTemplateFile']) -> getContents();
 					} else {
 						$template = $this -> settings['listTemplate'];
 					}
@@ -398,7 +400,7 @@ class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 			// Use custom detail template? -> assign template to view
 			if ($this -> settings[useDetailTemplate]) {
 				if ($this -> settings['detailTemplateFile']) {
-					$template = file_get_contents($this -> settings['detailTemplateFile']);
+					$template = $this -> resourceFactory -> retrieveFileOrFolderObject($this -> settings['detailTemplateFile']) -> getContents();
 				} else {
 					$template = $this -> settings['detailTemplate'];
 				}
@@ -490,7 +492,7 @@ class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 			// Use custom edit template? -> assign template to view
 			if ($this -> settings['useEditTemplate']) {
 				if ($this -> settings['editTemplateFile']) {
-					$template = file_get_contents($this -> settings['editTemplateFile']);
+					$template = $this -> resourceFactory -> retrieveFileOrFolderObject($this -> settings['editTemplateFile']) -> getContents();
 				} else {
 					$template = $this -> settings['editTemplate'];
 				}
@@ -740,7 +742,7 @@ class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 			// Use custom new template? -> assign template to view
 			if ($this -> settings['useNewTemplate']) {
 				if ($this -> settings['newTemplateFile']) {
-					$template = file_get_contents($this -> settings['newTemplateFile']);
+					$template = $this -> resourceFactory -> retrieveFileOrFolderObject($this -> settings['newTemplateFile']) -> getContents();
 				} else {
 					$template = $this -> settings['newTemplate'];
 				}
@@ -1166,7 +1168,7 @@ class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 		// Use custom search template? -> assign template to view
 		if ($this -> settings['useSearchTemplate']) {
 			if ($this -> settings['searchTemplateFile']) {
-				$template = file_get_contents($this -> settings['searchTemplateFile']);
+				$template = $this -> resourceFactory -> retrieveFileOrFolderObject($this -> settings['searchTemplateFile']) -> getContents();
 			} else {
 				$template = $this -> settings['searchTemplate'];
 			}

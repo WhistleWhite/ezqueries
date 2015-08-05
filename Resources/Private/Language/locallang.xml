@@ -106,6 +106,7 @@
 			<label index="column_configuration_showas">Show as:</label>
 			<label index="column_configuration_checkbox">Checkbox</label>
 			<label index="column_configuration_yesno">Yes/No</label>
+			<label index="column_configuration_chooseyesno">Choose/Yes/No</label>
 			<label index="column_configuration_number">Number</label>
 			<label index="column_configuration_numberformat">Number format:</label>
 			<label index="column_configuration_dateformat">Date format:</label>
@@ -266,6 +267,7 @@
 			<label index="column_configuration_showas">Zeige als:</label>
 			<label index="column_configuration_checkbox">Checkbox</label>
 			<label index="column_configuration_yesno">Ja/Nein</label>
+			<label index="column_configuration_chooseyesno">Auswählen/Ja/Nein</label>
 			<label index="column_configuration_number">Zahl</label>
 			<label index="column_configuration_numberformat">Zahlenformat:</label>
 			<label index="column_configuration_dateformat">Datumsformat:</label>

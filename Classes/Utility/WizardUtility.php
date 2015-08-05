@@ -835,6 +835,8 @@ class WizardUtility {
 							$output .= '<option value="checkbox">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('column_configuration_checkbox', 'ezqueries') . '</option>';
 						if ($columnTypes[$column]['render'] != 'yesno')
 							$output .= '<option value="yesno">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('column_configuration_yesno', 'ezqueries') . '</option>';
+						if ($columnTypes[$column]['render'] != 'chooseyesno')
+							$output .= '<option value="chooseyesno">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('column_configuration_chooseyesno', 'ezqueries') . '</option>';
 						if ($columnTypes[$column]['render'] != 'number')
 							$output .= '<option value="number">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('column_configuration_number', 'ezqueries') . '</option>';
 						$output .= '</select></td>';

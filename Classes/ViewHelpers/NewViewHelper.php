@@ -101,7 +101,7 @@ class NewViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper 
 		}
 
 		// Submit new form element
-		$code .= '<div class="tx_ezqueries_form_row tx_ezqueries_form_row_submit"><input class="tx_ezqueries_submit tx_ezqueries_submit_new" name="' . $url . '" type="submit" value="' . Tx_Extbase_Utility_Localization::translate('edit_form_submit', 'ezqueries') . '" /></div>';
+		$code .= '<div class="tx_ezqueries_form_row tx_ezqueries_form_row_submit"><input class="tx_ezqueries_submit tx_ezqueries_submit_new" name="' . $url . '" type="submit" value="' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('new_form_submit', 'ezqueries') . '" /></div>';
 		$code .= '</div>';
 
 		return $code;
