@@ -127,7 +127,6 @@ class RecordManagementRepository extends \TYPO3\CMS\Extbase\Persistence\Reposito
 	 */
 	public function connectTypo3() {
 		$connection = ADONewConnection('mysqli');
-		$connection = ADONewConnection('mysqli');
 		$connection -> NConnect(TYPO3_db_host, TYPO3_db_username, TYPO3_db_password, TYPO3_db);
 		$connection -> EXECUTE("set names 'utf8'");
 		return $connection;
