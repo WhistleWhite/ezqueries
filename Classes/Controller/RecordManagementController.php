@@ -621,7 +621,7 @@ class RecordManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 				if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ezqueries']['recordManagementController']['hookAfterUpdate'])) {
 					foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ezqueries']['recordManagementController']['hookAfterUpdate'] as $_classRef) {
 						$_procObj = &\TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj($_classRef);
-						$_procObj -> hookAfterUpdate($data, $primaryKeys, $columns, $columnTypes, $tables[0], $arguments);
+						$_procObj -> hookAfterUpdate($data, $primaryKeys, $columns, $columnTypes, $tables[0], $arguments, $filters);
 					}
 				}
 			}
