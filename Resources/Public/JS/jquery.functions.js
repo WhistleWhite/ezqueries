@@ -99,16 +99,16 @@ jQuery(document).ready(function($) {
 	// Form validation
 	$('form.tx_ezqueries_form').validate();
 
-	$('body').on('change keypress paste focus textInput input', 'input.tx_ezqueries_input', function() {
+	$('body').on('change keypress paste textInput input', 'input.tx_ezqueries_input', function() {
 		$(this).valid();
 	});
 
-	$('body').on('change keypress paste focus textInput input', 'textarea.tx_ezqueries_textarea', function() {
+	$('body').on('change keypress paste textInput input', 'textarea.tx_ezqueries_textarea', function() {
 		$(this).valid();
 	});
 
 	// Full-text search
-	$('body').on('change', 'input.tx_ezqueries_input_search', function() {
+	$('body').on('change keypress paste textInput input', 'input.tx_ezqueries_input_search', function() {
 		$(this).parent().find('input.tx_ezqueries_input_hidden').val($(this).val());
 	});
 
