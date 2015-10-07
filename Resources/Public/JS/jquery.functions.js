@@ -37,7 +37,7 @@ var init = true;
 
 window.onhashchange = function() {
 	init = false;
-}
+};
 
 jQuery(document).ready(function($) {
 	// TinyMCE editor
@@ -450,7 +450,9 @@ jQuery(document).ready(function($) {
 		});
 
 		// Is data valid?
+		$('textarea.tx_ezqueries_textarea_editor').show();
 		if($(this).closest('form.tx_ezqueries_form').valid()) {
+			$('textarea.tx_ezqueries_textarea_editor').hide();
 			if( typeof (window.ezqueries_form_valid) == 'function') {
 				ezqueries_form_valid($(this));
 			}
@@ -626,6 +628,7 @@ jQuery(document).ready(function($) {
 				}
 			});
 		} else {
+			$('textarea.tx_ezqueries_textarea_editor').hide();
 			if( typeof (window.ezqueries_form_not_valid) == 'function') {
 				ezqueries_form_not_valid($(this));
 			}
