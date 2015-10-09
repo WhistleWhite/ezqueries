@@ -53,7 +53,6 @@ class ValueUtility {
 	 */
 	public function generateValue($column, $record, $columnTypes, $search, $uriBuilder, $templateUtility = NULL, $recordManagementRepository = NULL, $arguments = NULL) {
 		$this -> objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-
 		$conversionUtility = $this -> objectManager -> get('Frohland\\Ezqueries\\Utility\\ConversionUtility');
 		$urlUtility = $this -> objectManager -> create('Frohland\\Ezqueries\\Utility\\URLUtility', $uriBuilder);
 		if ($templateUtility == NULL) {
@@ -133,9 +132,42 @@ class ValueUtility {
 			}
 		}
 
-		if ($value !== FALSE) {
+		if ($value !== FALSE && $value !== '') {
 			$value = $languageUtility -> translateValue($value);
 			$originalValue = $value;
+
+			// Highlight search strings in $value
+			$searchString = $search[$column]['value'];
+			$searchString = str_replace('\"', '"', $searchString);
+			$searchString = preg_quote($searchString, '/');
+			$searchArray = array('ä', 'Ä', 'ö', 'Ö', 'ü', 'Ü', 'ß');
+			$replaceArray = array('a', 'A', 'o', 'O', 'u', 'U', 'ss');
+			$searchStringConverted = str_replace($searchArray, $replaceArray, $searchString);
+			if ($searchStringConverted == $searchString) {
+				if ($searchString !== '' && $searchString !== NULL && $search['highlighting'] == 'true') {
+					if (isset($columnTypes[$column]['searchHighlightWrap'])) {
+						$wrapString = trim($columnTypes[$column]['searchHighlightWrap']);
+						$wrapBefore = $languageUtility -> translateValue(substr($wrapString, 0, strpos($wrapString, '|')));
+						$wrapAfter = $languageUtility -> translateValue(substr($wrapString, strpos($wrapString, '|') + 1, strlen($wrapString) - strpos($wrapString, '|') - 1));
+						$value = preg_replace('/(' . $searchString . ')/iu', '' . $wrapBefore . '${1}' . $wrapAfter . '', $value);
+					} else {
+						$value = preg_replace('/(' . $searchString . ')/iu', '<span class="tx_ezqueries_search_mark">${1}</span>', $value);
+					}
+				}
+			} else {
+				if ($searchString !== '' && $searchString !== NULL && $search['highlighting'] == 'true') {
+					if (isset($columnTypes[$column]['searchHighlightWrap'])) {
+						$wrapString = trim($columnTypes[$column]['searchHighlightWrap']);
+						$wrapBefore = $languageUtility -> translateValue(substr($wrapString, 0, strpos($wrapString, '|')));
+						$wrapAfter = $languageUtility -> translateValue(substr($wrapString, strpos($wrapString, '|') + 1, strlen($wrapString) - strpos($wrapString, '|') - 1));
+						$value = preg_replace('/(' . $searchString . ')/iu', '' . $wrapBefore . '${1}' . $wrapAfter . '', $value);
+						$value = preg_replace('/(' . $searchStringConverted . ')/iu', '' . $wrapBefore . '${1}' . $wrapAfter . '', $value);
+					} else {
+						$value = preg_replace('/(' . $searchString . ')/iu', '<span class="tx_ezqueries_search_mark">${1}</span>', $value);
+						$value = preg_replace('/(' . $searchStringConverted . ')/iu', '<span class="tx_ezqueries_search_mark">${1}</span>', $value);
+					}
+				}
+			}
 
 			switch($columnTypes[$column]['type']) {
 				// Boolean column
@@ -244,23 +276,6 @@ class ValueUtility {
 				default :
 					$code .= $value;
 					break;
-			}
-
-			// Highlight search strings in $value
-			$searchString = $search[$column]['value'];
-			$searchArray = array('ä', 'Ä', 'ö', 'Ö', 'ü', 'Ü', 'ß');
-			$replaceArray = array('a', 'A', 'o', 'O', 'u', 'U', 'ss');
-			$searchString = str_replace($searchArray, $replaceArray, $searchString);
-			$searchString = preg_quote($searchString, '/');
-			if ($searchString !== '' && $searchString !== NULL && $search['highlighting'] == 'true') {
-				if (isset($columnTypes[$column]['searchHighlightWrap'])) {
-					$wrapString = trim($columnTypes[$column]['searchHighlightWrap']);
-					$wrapBefore = $languageUtility -> translateValue(substr($wrapString, 0, strpos($wrapString, '|')));
-					$wrapAfter = $languageUtility -> translateValue(substr($wrapString, strpos($wrapString, '|') + 1, strlen($wrapString) - strpos($wrapString, '|') - 1));
-					$code = preg_replace('/(' . $searchString . ')/iu', '' . $wrapBefore . '${1}' . $wrapAfter . '', $code);
-				} else {
-					$code = preg_replace('/(' . $searchString . ')/iu', '<span class="tx_ezqueries_search_mark">${1}</span>', $code);
-				}
 			}
 
 			$displayElement = TRUE;
