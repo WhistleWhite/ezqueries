@@ -706,7 +706,9 @@ class RecordManagement extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 				foreach ($arguments['search'] as $column => $value) {
 					if ($column !== 'highlighting' && $column !== 'fullTextSearch') {
 						if ($arguments['search'][$column]['value'] !== NULL && $arguments['search'][$column]['value'] !== "") {
-							$search[$column]['value'] = $arguments['search'][$column]['value'];
+							$connection = $this -> recordManagementRepository -> connect();
+							$search[$column]['value'] = substr($connection -> qstr($arguments['search'][$column]['value']), 1, -1);
+							$connection -> Close();
 							$search[$column]['operation'] = $arguments['search'][$column]['operation'];
 							$search[$column]['columnType'] = $columnTypes[$column]['type'];
 							if (isset($arguments['search'][$column]['searchMode'])) {
